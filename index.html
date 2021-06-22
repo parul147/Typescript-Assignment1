@@ -39,6 +39,12 @@
   flex-direction: column;
                 
                 }
+                #table1{
+margin-top: 250px;
+                }
+                #table2{
+                    display: none;
+                }
             
             
         </style>
@@ -47,12 +53,13 @@
     <body>
         
        <div class="body1">
-        <h1>TABLE</h1>
-        <button id="table1" Onclick="showTable();">LOAD DATA</button>
+        <marquee scrollamount="12"><h1>TypeScript Assignment</h1></marquee>
+        <button id="table1"class="btn btn-success  btn-lg" Onclick="showTable();">LOAD DATA</button>
+        <button id="table2" class="btn btn-info  btn-lg"  Onclick="window.location.reload();">REFRESH DATA</button>
 <div id="displaytable" style="display: none;">
 <div class="container">
-<table class="table table-stripped">
-    <thead>
+<table class="table table-striped table-dark table-bordered table-hover">
+    <thead class="thead-dark">
 <tr>
     <th>First Name</th>
     <th>Middle Name</th>

@@ -1,3 +1,12 @@
+enum Roles {
+  FS="Full Stack Developer",
+  LH="Lead HR",
+  BA="Business Associate",
+  SA="Senior Associate",
+  LM="Lead Marketer"
+}
+
+
 interface Row {
     id: number;
     FirstName: string;
@@ -5,7 +14,7 @@ interface Row {
     LastName:string;
     Email:string;
     PhoneNumber:string;
-    Role:string;
+    Role:Roles;
     Address:string;
 }
 
@@ -19,7 +28,7 @@ let json:Row[] =[
         "LastName":"Parrish",
         "Email":"Alex.2331@gmail.com",
         "PhoneNumber":"782314564",
-        "Role":"Full Stack Developer",
+        "Role":Roles.FS,
         "Address":"Street Pork, Los Angeles"
         
     },
@@ -30,7 +39,7 @@ let json:Row[] =[
         "LastName":"Wyatt",
         "Email":"Wyattshelby123@gmail.com",
         "PhoneNumber":"734314564",
-        "Role":"Business Associate",
+        "Role":Roles.BA,
         "Address":"Downtown, Boston"
     },
     {
@@ -40,7 +49,7 @@ let json:Row[] =[
         "LastName":"Vasquez",
         "Email":"Vasquez1996@gmail.com",
         "PhoneNumber":"8734314564",
-        "Role":"Lead Marketer",
+        "Role":Roles.LH,
         "Address":"Green Avenue, Chicago"
     },
     {
@@ -50,7 +59,7 @@ let json:Row[] =[
       "LastName":"Peirce",
       "Email":"evil1996@gmail.com",
       "PhoneNumber":"9134314564",
-      "Role":"Senior Associate",
+      "Role":Roles.SA,
       "Address":"White Park, Manhattan"
   },
   {
@@ -60,7 +69,7 @@ let json:Row[] =[
     "LastName":"Castellano",
     "Email":"Cast123@gmail.com",
     "PhoneNumber":"993431452",
-    "Role":"Lead HR",
+    "Role":Roles.LM,
     "Address":"Avenue 16th, Ohio"
 },
     
@@ -70,17 +79,22 @@ let jsoncopy: Row[] = json;
 let display_table:HTMLElement=document.getElementById("tabledata") as HTMLElement; 
 function showTable(): void
 {let display_none:boolean = document.getElementById("displaytable").style.display === "none";
- let refresh_button:HTMLElement= document.getElementById("table1") as HTMLElement;
+ let refresh_button:HTMLElement= document.getElementById("table2") as HTMLElement;
+ let load_button:HTMLElement= document.getElementById("table1") as HTMLElement;
 
  let display_block:HTMLElement=document.getElementById("displaytable") as HTMLElement; 
  
  if (display_none)
-    { refresh_button.innerHTML ="REFRESH DATA";
-   display_block.style.display="block";}
+    { refresh_button.style.display="block";
+    load_button.style.display="none";
+   display_block.style.display="block";
+
+   
+}
    
 else{
  window.location.reload();
-   display_block.style.display="block";}
+ }
     
 }
     
@@ -99,7 +113,7 @@ json.forEach((u:any)=>{
     temp += "<td>"+u.PhoneNumber+"</td>";
     temp += "<td>"+u.Role+"</td>";
     temp += "<td>"+u.Address+"</td>";
-    temp += "<td> <div class='options'><div id='Edit_Panelrow"+u.id+"' style='display:block'> <button type=submit onclick=\"EditButton('row"+u.id+"')\"  > Edit </button>  <button type=submit onclick=\"DeleteButton("+u.id+")\"  > Delete </button></div><div id='Save_Panelrow"+u.id+"' style='display: none'><button type=submit onclick=\"SaveButton("+u.id+")\"  > Save </button> <button type=submit onclick=\"CancelButton("+u.id+")\" > Cancel</button> </div></div></td></tr>";
+    temp += "<td> <div class='options'><div id='Edit_Panelrow"+u.id+"' style='display:block'> <button class='btn btn-success' type=submit onclick=\"EditButton('row"+u.id+"')\"  > Edit </button>  <button  class='btn btn-danger' type=submit onclick=\"DeleteButton("+u.id+")\"  > Delete </button></div><div id='Save_Panelrow"+u.id+"' style='display: none'><button  class='btn btn-primary' type=submit onclick=\"SaveButton("+u.id+")\"  > Save </button> <button  class='btn btn-warning' type=submit onclick=\"CancelButton("+u.id+")\" > Cancel</button> </div></div></td></tr>";
     
    
    
