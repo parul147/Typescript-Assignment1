@@ -16,11 +16,15 @@ interface Row {
     PhoneNumber:string;
     Role:Roles;
     Address:string;
+    Edit(id : string) : void;
+    DeleteButton(id: number): void;
+    SaveButton(id: string): void;
+    CancelButton(id: string): void
 }
 
 
 
-let json:Row[] =[
+let json =[
     {
         "id": 1,
         "FirstName":"Christy",
@@ -73,9 +77,195 @@ let json:Row[] =[
     "Address":"Avenue 16th, Ohio"
 },
     
-];
+];var l= json.length;
+var editedContent:string[]=[];
 
-let jsoncopy: Row[] = json;
+class jsonObject implements Row{
+  id: number;
+  FirstName: string;
+  MiddleName: string;
+  LastName:string;
+  Email:string;
+  PhoneNumber:string;
+  Role:Roles;
+  Address:string;
+ 
+   Edit(id: string): void{
+    console.log(id);
+    var id_name= 'Edit_Panel'+id;
+    var id_name: string = id_name.toString();
+    var id_name1= 'Save_Panel'+id;
+    var id_name1: string = id_name1.toString();
+    
+    console.log("id of cancel",id);
+    var editPanel: HTMLElement = document.getElementById(id_name) as HTMLElement;
+    console.log("edit panel",editPanel);
+  var savePanel: HTMLElement = document.getElementById(id_name1) as HTMLElement;
+  console.log("save panel",savePanel);
+  if(editPanel.style.display == 'block')
+  {
+   
+   editPanel.style.display = "none";
+   savePanel.style.display="block";
+  console.log("display vlovk");
+   
+ }
+ 
+    console.log("idtupe",typeof(id));
+     // return ;
+ console.log('id n',id);
+     var currentrow : HTMLElement= document.getElementById(id) as HTMLElement;
+     console.log("currentrow",currentrow);
+     currentrow.contentEditable= "true"; 
+ 
+      
+ 
+  
+
+}
+
+DeleteButton(id: number): void {
+  
+
+v=newObj;
+
+  let newArray = json.filter((item: any) => {
+  return item.id !== id
+  });
+  
+  json = newArray;
+  
+  
+  console.log("Debug2:newAray ", newArray)
+  
+      
+     
+          var temp = "";
+      
+         
+          newArray.forEach((u:any)=>{
+        
+        temp += "<tr  id="+"row"+u.id+">";
+        temp += "<td>"+u.FirstName+"</td>";
+        temp += "<td>"+u.MiddleName+"</td>";
+        temp += "<td>"+u.LastName+"</td>";
+        temp += "<td>"+u.Email+"</td>";
+        temp += "<td>"+u.PhoneNumber+"</td>";
+        temp += "<td>"+u.Role+"</td>";
+        temp += "<td>"+u.Address+"</td>";
+        temp += "<td> <div class='options'><div id='Edit_Panelrow"+u.id+"' style='display:block'> <button class='btn btn-success' type=submit onclick=\"v.Edit('row"+u.id+"')\"  > Edit </button>  <button  class='btn btn-danger' type=submit onclick=\"v.DeleteButton("+u.id+")\"  > Delete </button></div><div id='Save_Panelrow"+u.id+"' style='display: none'><button  class='btn btn-primary' type=submit onclick=\"v.SaveButton("+u.id+")\"  > Save </button> <button  class='btn btn-warning' type=submit onclick=\"v.CancelButton("+u.id+")\" > Cancel</button> </div></div></td></tr>";
+      
+       
+       
+    }); 
+      
+          display_table.innerHTML = temp;
+  
+     
+  }
+
+   SaveButton(id: string): void{
+    console.log("argument of save button",id);
+   var rowid = 'row'+id;
+   
+   
+   var selectedrow = document.getElementById(rowid);
+   var selectedrowcontent = selectedrow.innerHTML;
+   console.log('select row content', selectedrowcontent);
+   var idint = parseInt(id);
+   editedContent[idint] = selectedrowcontent;
+   
+     
+   
+   var is_current = selectedrow.isContentEditable;
+   if(is_current){
+     selectedrow.contentEditable="false";
+   }
+    var id_name= 'Edit_Panel'+rowid;
+   var id_name1= 'Save_Panel'+rowid;
+    var editPanel: HTMLElement = document.getElementById(id_name) as HTMLElement;
+   var savePanel: HTMLElement = document.getElementById(id_name1) as HTMLElement;
+   if(editPanel.style.display == 'none')
+   {
+   
+   editPanel.style.display = "block";
+   savePanel.style.display="none";
+   
+   }
+   
+   
+   
+   
+   }
+  CancelButton(id: string): void {
+    console.log("id",id);
+     var intid = parseInt(id);
+     console.log("in cancel button");
+     console.log("intid",intid);
+     console.log(editedContent[intid]);
+     var temp ="";
+     var rowid = 'row'+id;
+     console.log(rowid);
+     var selectedrow1 = document.getElementById(rowid);
+     var selectedrow1c = selectedrow1.innerHTML;
+     console.log("cancel row",selectedrow1)
+     
+     var is_editable = selectedrow1.isContentEditable;
+     if(is_editable){
+       selectedrow1.contentEditable = "false";
+     }
+    var i;
+  for(i=1;i<=jsoncopy.length;i++){
+  if(editedContent[i])
+  {
+    temp+="<tr id='row"+i+"'>"+editedContent[i]+"</tr>";
+  }
+  if(!editedContent[i])
+  {
+    var u =jsoncopy[i-1];
+    temp += "<tr  id="+"row"+u.id+">";
+    temp += "<td >"+u.FirstName+"</td>";
+    temp += "<td>"+u.MiddleName+"</td>";
+    temp += "<td>"+u.LastName+"</td>";
+    temp += "<td>"+u.Email+"</td>";
+    temp += "<td>"+u.PhoneNumber+"</td>";
+    temp += "<td>"+u.Role+"</td>";
+    temp += "<td>"+u.Address+"</td>";
+    temp += "<td> <div class='options'><div id='Edit_Panelrow"+u.id+"' style='display:block'> <button class='btn btn-success' type=submit onclick=\"v.Edit('row"+u.id+"')\"  > Edit </button>  <button  class='btn btn-danger' type=submit onclick=\"v.DeleteButton("+u.id+")\"  > Delete </button></div><div id='Save_Panelrow"+u.id+"' style='display: none'><button  class='btn btn-primary' type=submit onclick=\"v.SaveButton("+u.id+")\"  > Save </button> <button  class='btn btn-warning' type=submit onclick=\"v.CancelButton("+u.id+")\" > Cancel</button> </div></div></td></tr>";
+      
+    console.log("u.id",u.id);
+  
+  }
+  console.log(temp);
+  display_table.innerHTML=temp;
+  }
+   
+    
+  
+  
+  
+  
+  var id_name= 'Edit_Panel'+rowid;
+  var id_name1= 'Save_Panel'+rowid;
+   var editPanel: HTMLElement = document.getElementById(id_name) as HTMLElement;
+  var savePanel: HTMLElement = document.getElementById(id_name1) as HTMLElement;
+  if(editPanel.style.display == 'none')
+  {
+  
+  editPanel.style.display = "block";
+  savePanel.style.display="none";
+  
+  }
+  
+  }
+   
+
+
+}
+
+  let newObj = (<any>Object).assign(new jsonObject(), json);
+
+let jsoncopy = json;
 let display_table:HTMLElement=document.getElementById("tabledata") as HTMLElement; 
 function showTable(): void
 {let display_none:boolean = document.getElementById("displaytable").style.display === "none";
@@ -98,13 +288,14 @@ else{
     
 }
     
+
   if(json.length > 0)
   {
       var temp = "";
   
-     
-json.forEach((u:any)=>{
-    
+    var i; 
+for(i=0;i<5;i++){
+    var u = newObj[i]; var v=newObj;
     temp += "<tr  id="+"row"+u.id+">";
     temp += "<td >"+u.FirstName+"</td>";
     temp += "<td>"+u.MiddleName+"</td>";
@@ -113,11 +304,11 @@ json.forEach((u:any)=>{
     temp += "<td>"+u.PhoneNumber+"</td>";
     temp += "<td>"+u.Role+"</td>";
     temp += "<td>"+u.Address+"</td>";
-    temp += "<td> <div class='options'><div id='Edit_Panelrow"+u.id+"' style='display:block'> <button class='btn btn-success' type=submit onclick=\"EditButton('row"+u.id+"')\"  > Edit </button>  <button  class='btn btn-danger' type=submit onclick=\"DeleteButton("+u.id+")\"  > Delete </button></div><div id='Save_Panelrow"+u.id+"' style='display: none'><button  class='btn btn-primary' type=submit onclick=\"SaveButton("+u.id+")\"  > Save </button> <button  class='btn btn-warning' type=submit onclick=\"CancelButton("+u.id+")\" > Cancel</button> </div></div></td></tr>";
+    temp += "<td> <div class='options'><div id='Edit_Panelrow"+u.id+"' style='display:block'> <button class='btn btn-success' type=submit onclick=\"v.Edit('row"+u.id+"')\"  > Edit </button>  <button  class='btn btn-danger' type=submit onclick=\"v.DeleteButton("+u.id+")\"  > Delete </button></div><div id='Save_Panelrow"+u.id+"' style='display: none'><button  class='btn btn-primary' type=submit onclick=\"v.SaveButton("+u.id+")\"  > Save </button> <button  class='btn btn-warning' type=submit onclick=\"v.CancelButton("+u.id+")\" > Cancel</button> </div></div></td></tr>";
     
    
    
-}); 
+}; 
     // The line below will also give id
     // dynamically to the tables
     //table.id = i+1;
@@ -128,173 +319,11 @@ json.forEach((u:any)=>{
  
 
 
-function EditButton(id: string): void{
-    console.log(id);
-    var id_name= 'Edit_Panel'+id;
-    var id_name: string = id_name.toString();
-    var id_name1= 'Save_Panel'+id;
-    var id_name1: string = id_name1.toString();
-    
-    console.log("id of cancel",id);
-    var editPanel: HTMLElement = document.getElementById(id_name) as HTMLElement;
-    console.log("edit panel",editPanel);
-  var savePanel: HTMLElement = document.getElementById(id_name1) as HTMLElement;
- 
-
-  if(editPanel.style.display == 'block')
- {
-  
-  editPanel.style.display = "none";
-  savePanel.style.display="block";
-  
-}
-
-   console.log("idtupe",typeof(id));
-    // return ;
-console.log('id n',id);
-    var currentrow : HTMLElement= document.getElementById(id) as HTMLElement;
-    console.log("currentrow",currentrow);
-    currentrow.contentEditable= "true"; 
-
-     
-}
-
-function DeleteButton(id: number): void {
-  
-
-
-
-let newArray = json.filter((item: any) => {
-return item.id !== id
-});
-
-json = newArray;
-
-
-console.log("Debug2:newAray ", newArray)
-
-    
-   
-        var temp = "";
-    
-       
-        newArray.forEach((u:any)=>{
-      
-      temp += "<tr  id="+"row"+u.id+">";
-      temp += "<td>"+u.FirstName+"</td>";
-      temp += "<td>"+u.MiddleName+"</td>";
-      temp += "<td>"+u.LastName+"</td>";
-      temp += "<td>"+u.Email+"</td>";
-      temp += "<td>"+u.PhoneNumber+"</td>";
-      temp += "<td>"+u.Role+"</td>";
-      temp += "<td>"+u.Address+"</td>";
-      temp += "<td> <div class='options'><div id='Edit_Panelrow"+u.id+"' style='display:block'> <button class='btn btn-success' type=submit onclick=\"EditButton('row"+u.id+"')\"  > Edit </button>  <button  class='btn btn-danger' type=submit onclick=\"DeleteButton("+u.id+")\"  > Delete </button></div><div id='Save_Panelrow"+u.id+"' style='display: none'><button  class='btn btn-primary' type=submit onclick=\"SaveButton("+u.id+")\"  > Save </button> <button  class='btn btn-warning' type=submit onclick=\"CancelButton("+u.id+")\" > Cancel</button> </div></div></td></tr>";
-    
-     
-     
-  }); 
-    
-        display_table.innerHTML = temp;
-
-   
-}
-var l= json.length;
-var editedContent:string[]=[];
-
-function SaveButton(id: string): void{
- console.log("argument of save button",id);
-var rowid = 'row'+id;
-
-
-var selectedrow = document.getElementById(rowid);
-var selectedrowcontent = selectedrow.innerHTML;
-console.log('select row content', selectedrowcontent);
-var idint = parseInt(id);
-editedContent[idint] = selectedrowcontent;
-
-  
-
-var is_current = selectedrow.isContentEditable;
-if(is_current){
-  selectedrow.contentEditable="false";
-}
- var id_name= 'Edit_Panel'+rowid;
-var id_name1= 'Save_Panel'+rowid;
- var editPanel: HTMLElement = document.getElementById(id_name) as HTMLElement;
-var savePanel: HTMLElement = document.getElementById(id_name1) as HTMLElement;
-if(editPanel.style.display == 'none')
-{
-
-editPanel.style.display = "block";
-savePanel.style.display="none";
-
-}
 
 
 
 
-}
-
-
-var array: Row[]=json;
-function CancelButton(id: string): void {
-  console.log("id",id);
-   var intid = parseInt(id);
-   console.log("in cancel button");
-   console.log("intid",intid);
-   console.log(editedContent[intid]);
-   var temp ="";
-   var rowid = 'row'+id;
-   console.log(rowid);
-   var selectedrow1 = document.getElementById(rowid);
-   var selectedrow1c = selectedrow1.innerHTML;
-   console.log("cancel row",selectedrow1)
-   
-   var is_editable = selectedrow1.isContentEditable;
-   if(is_editable){
-     selectedrow1.contentEditable = "false";
-   }
-  var i;
-for(i=1;i<=jsoncopy.length;i++){
-if(editedContent[i])
-{
-  temp+="<tr id='row"+i+"'>"+editedContent[i]+"</tr>";
-}
-if(!editedContent[i])
-{
-  var u =jsoncopy[i-1];
-  temp += "<tr  id="+"row"+u.id+">";
-  temp += "<td >"+u.FirstName+"</td>";
-  temp += "<td>"+u.MiddleName+"</td>";
-  temp += "<td>"+u.LastName+"</td>";
-  temp += "<td>"+u.Email+"</td>";
-  temp += "<td>"+u.PhoneNumber+"</td>";
-  temp += "<td>"+u.Role+"</td>";
-  temp += "<td>"+u.Address+"</td>";
-  temp += "<td> <div class='options'><div id='Edit_Panelrow"+u.id+"' style='display:block'> <button class='btn btn-success' type=submit onclick=\"EditButton('row"+u.id+"')\"  > Edit </button>  <button  class='btn btn-danger' type=submit onclick=\"DeleteButton("+u.id+")\"  > Delete </button></div><div id='Save_Panelrow"+u.id+"' style='display: none'><button  class='btn btn-primary' type=submit onclick=\"SaveButton("+u.id+")\"  > Save </button> <button  class='btn btn-warning' type=submit onclick=\"CancelButton("+u.id+")\" > Cancel</button> </div></div></td></tr>";
-    
-  console.log("u.id",u.id);
-
-}
-console.log(temp);
-display_table.innerHTML=temp;
-}
- 
-  
 
 
 
-
-var id_name= 'Edit_Panel'+rowid;
-var id_name1= 'Save_Panel'+rowid;
- var editPanel: HTMLElement = document.getElementById(id_name) as HTMLElement;
-var savePanel: HTMLElement = document.getElementById(id_name1) as HTMLElement;
-if(editPanel.style.display == 'none')
-{
-
-editPanel.style.display = "block";
-savePanel.style.display="none";
-
-}
-
-}
+var array=json;
