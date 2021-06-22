@@ -35,14 +35,34 @@ let json:Row[] =[
     },
     {
         "id": 3,
-        "FirstName":"NatalieM ",
+        "FirstName":"Natalie ",
         "MiddleName": "Crystal",
         "LastName":"Vasquez",
         "Email":"Vasquez1996@gmail.com",
         "PhoneNumber":"8734314564",
         "Role":"Lead Marketer",
         "Address":"Green Avenue, Chicago"
-    }
+    },
+    {
+      "id": 4,
+      "FirstName":"Katherine",
+      "MiddleName": "Petrova",
+      "LastName":"Peirce",
+      "Email":"evil1996@gmail.com",
+      "PhoneNumber":"9134314564",
+      "Role":"Senior Associate",
+      "Address":"White Park, Manhattan"
+  },
+  {
+    "id": 5,
+    "FirstName":"Daniell ",
+    "MiddleName": "Reginald",
+    "LastName":"Castellano",
+    "Email":"Cast123@gmail.com",
+    "PhoneNumber":"993431452",
+    "Role":"Lead HR",
+    "Address":"Avenue 16th, Ohio"
+},
     
 ];
 
@@ -59,7 +79,7 @@ function showTable(): void
    display_block.style.display="block";}
    
 else{
-//    window.location.reload();
+ window.location.reload();
    display_block.style.display="block";}
     
 }
@@ -209,17 +229,27 @@ function CancelButton(id: string): void {
    console.log("intid",intid);
    console.log(editedContent[intid]);
    var temp ="";
-if(editedContent[intid])
-{var i;
- 
-  for(i=1;i<=jsoncopy.length;i++){
-    if(i==intid){
-      temp+=editedContent[intid];
-    }
-if(i != intid){
+   var rowid = 'row'+id;
+   console.log(rowid);
+   var selectedrow1 = document.getElementById(rowid);
+   var selectedrow1c = selectedrow1.innerHTML;
+   console.log("cancel row",selectedrow1)
+   
+   var is_editable = selectedrow1.isContentEditable;
+   if(is_editable){
+     selectedrow1.contentEditable = "false";
+   }
+  var i;
+for(i=1;i<=jsoncopy.length;i++){
+if(editedContent[i])
+{
+  temp+="<tr id='row "+i+"'>"+editedContent[i]+"</tr>";
+}
+if(!editedContent[i])
+{
   var u =jsoncopy[i-1];
   temp += "<tr  id="+"row"+u.id+">";
-  temp += "<td>"+u.FirstName+"</td>";
+  temp += "<td >"+u.FirstName+"</td>";
   temp += "<td>"+u.MiddleName+"</td>";
   temp += "<td>"+u.LastName+"</td>";
   temp += "<td>"+u.Email+"</td>";
@@ -227,20 +257,17 @@ if(i != intid){
   temp += "<td>"+u.Role+"</td>";
   temp += "<td>"+u.Address+"</td>";
   temp += "<td> <div class='options'><div id='Edit_Panelrow"+u.id+"' style='display:block'> <button type=submit onclick=\"EditButton('row"+u.id+"')\"  > Edit </button>  <button type=submit onclick=\"DeleteButton("+u.id+")\"  > Delete </button></div><div id='Save_Panelrow"+u.id+"' style='display: none'><button type=submit onclick=\"SaveButton("+u.id+")\"  > Save </button> <button type=submit onclick=\"CancelButton("+u.id+")\" > Cancel</button> </div></div></td></tr>";
-
+  console.log("u.id",u.id);
 
 }
-  }
-  display_table.innerHTML= temp;
+console.log(temp);
+display_table.innerHTML=temp;
 }
+ 
+  
 
 
-var rowid = 'row'+id;
-var selectedrow1 = document.getElementById(rowid);
-var is_current = selectedrow1.isContentEditable;
-if(is_current){
-  selectedrow1.contentEditable="false";
-}
+
 
 var id_name= 'Edit_Panel'+rowid;
 var id_name1= 'Save_Panel'+rowid;
