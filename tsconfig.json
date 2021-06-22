@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+         "lib": [ "es2017", "dom" ],
+        
+  "noImplicitAny": true,
+  "removeComments": true,
+  "preserveConstEnums": true,
+  "sourceMap": true,
+  
+  "target": "es5"
+    }
+}
