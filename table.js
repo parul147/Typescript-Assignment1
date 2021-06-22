@@ -99,6 +99,7 @@ function EditButton(id) {
     var id_name = id_name.toString();
     var id_name1 = 'Save_Panel' + id;
     var id_name1 = id_name1.toString();
+    console.log("id of cancel", id);
     var editPanel = document.getElementById(id_name);
     console.log("edit panel", editPanel);
     var savePanel = document.getElementById(id_name1);
@@ -106,8 +107,11 @@ function EditButton(id) {
         editPanel.style.display = "none";
         savePanel.style.display = "block";
     }
+    console.log("idtupe", typeof (id));
     // return ;
+    console.log('id n', id);
     var currentrow = document.getElementById(id);
+    console.log("currentrow", currentrow);
     currentrow.contentEditable = "true";
 }
 function DeleteButton(id) {
@@ -126,7 +130,7 @@ function DeleteButton(id) {
         temp += "<td>" + u.PhoneNumber + "</td>";
         temp += "<td>" + u.Role + "</td>";
         temp += "<td>" + u.Address + "</td>";
-        temp += "<td> <div class='options'><div id='Edit_Panelrow" + u.id + "' style='display:block'> <button type=submit onclick=\"EditButton('row" + u.id + "')\"  > Edit </button>  <button type=submit onclick=\"DeleteButton(" + u.id + ")\"  > Delete </button></div><div id='Save_Panelrow" + u.id + "' style='display: none'><button type=submit onclick=\"SaveButton(" + u.id + ")\"  > Save </button> <button type=submit onclick=\"CancelButton(" + u.id + ")\" > Cancel</button> </div></div></td></tr>";
+        temp += "<td> <div class='options'><div id='Edit_Panelrow" + u.id + "' style='display:block'> <button class='btn btn-success' type=submit onclick=\"EditButton('row" + u.id + "')\"  > Edit </button>  <button  class='btn btn-danger' type=submit onclick=\"DeleteButton(" + u.id + ")\"  > Delete </button></div><div id='Save_Panelrow" + u.id + "' style='display: none'><button  class='btn btn-primary' type=submit onclick=\"SaveButton(" + u.id + ")\"  > Save </button> <button  class='btn btn-warning' type=submit onclick=\"CancelButton(" + u.id + ")\" > Cancel</button> </div></div></td></tr>";
     });
     display_table.innerHTML = temp;
 }
@@ -173,7 +177,7 @@ function CancelButton(id) {
     var i;
     for (i = 1; i <= jsoncopy.length; i++) {
         if (editedContent[i]) {
-            temp += "<tr id='row " + i + "'>" + editedContent[i] + "</tr>";
+            temp += "<tr id='row" + i + "'>" + editedContent[i] + "</tr>";
         }
         if (!editedContent[i]) {
             var u = jsoncopy[i - 1];
@@ -185,7 +189,7 @@ function CancelButton(id) {
             temp += "<td>" + u.PhoneNumber + "</td>";
             temp += "<td>" + u.Role + "</td>";
             temp += "<td>" + u.Address + "</td>";
-            temp += "<td> <div class='options'><div id='Edit_Panelrow" + u.id + "' style='display:block'> <button type=submit onclick=\"EditButton('row" + u.id + "')\"  > Edit </button>  <button type=submit onclick=\"DeleteButton(" + u.id + ")\"  > Delete </button></div><div id='Save_Panelrow" + u.id + "' style='display: none'><button type=submit onclick=\"SaveButton(" + u.id + ")\"  > Save </button> <button type=submit onclick=\"CancelButton(" + u.id + ")\" > Cancel</button> </div></div></td></tr>";
+            temp += "<td> <div class='options'><div id='Edit_Panelrow" + u.id + "' style='display:block'> <button class='btn btn-success' type=submit onclick=\"EditButton('row" + u.id + "')\"  > Edit </button>  <button  class='btn btn-danger' type=submit onclick=\"DeleteButton(" + u.id + ")\"  > Delete </button></div><div id='Save_Panelrow" + u.id + "' style='display: none'><button  class='btn btn-primary' type=submit onclick=\"SaveButton(" + u.id + ")\"  > Save </button> <button  class='btn btn-warning' type=submit onclick=\"CancelButton(" + u.id + ")\" > Cancel</button> </div></div></td></tr>";
             console.log("u.id", u.id);
         }
         console.log(temp);
