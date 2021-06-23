@@ -309,11 +309,7 @@ for(i=0;i<5;i++){
    
    
 }; 
-    // The line below will also give id
-    // dynamically to the tables
-    //table.id = i+1;
-
-      //close loop
+    
       display_table.innerHTML = temp;
   }
  
@@ -326,4 +322,4 @@ for(i=0;i<5;i++){
 
 
 
-var array=json;
+
