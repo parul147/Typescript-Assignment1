@@ -58,13 +58,11 @@ var json = [
         "Address": "Avenue 16th, Ohio"
     },
 ];
-var l = json.length;
-var editedContent = [];
+var editedContent = []; //to save row with changes
 var jsonObject = /** @class */ (function () {
     function jsonObject() {
     }
     jsonObject.prototype.Edit = function (id) {
-        console.log(id);
         var id_name = 'Edit_Panel' + id;
         var id_name = id_name.toString();
         var id_name1 = 'Save_Panel' + id;
@@ -193,27 +191,20 @@ function showTable() {
         window.location.reload();
     }
 }
-if (json.length > 0) {
-    var temp = "";
-    var i;
-    for (i = 0; i < 5; i++) {
-        var u = newObj[i];
-        var v = newObj;
-        temp += "<tr  id=" + "row" + u.id + ">";
-        temp += "<td >" + u.FirstName + "</td>";
-        temp += "<td>" + u.MiddleName + "</td>";
-        temp += "<td>" + u.LastName + "</td>";
-        temp += "<td>" + u.Email + "</td>";
-        temp += "<td>" + u.PhoneNumber + "</td>";
-        temp += "<td>" + u.Role + "</td>";
-        temp += "<td>" + u.Address + "</td>";
-        temp += "<td> <div class='options'><div id='Edit_Panelrow" + u.id + "' style='display:block'> <button class='btn btn-success' type=submit onclick=\"v.Edit('row" + u.id + "')\"  > Edit </button>  <button  class='btn btn-danger' type=submit onclick=\"v.DeleteButton(" + u.id + ")\"  > Delete </button></div><div id='Save_Panelrow" + u.id + "' style='display: none'><button  class='btn btn-primary' type=submit onclick=\"v.SaveButton(" + u.id + ")\"  > Save </button> <button  class='btn btn-warning' type=submit onclick=\"v.CancelButton(" + u.id + ")\" > Cancel</button> </div></div></td></tr>";
-    }
-    ;
-    // The line below will also give id
-    // dynamically to the tables
-    //table.id = i+1;
-    //close loop
-    display_table.innerHTML = temp;
+var temp = "";
+var i;
+for (i = 0; i < 5; i++) {
+    var u = newObj[i];
+    var v = newObj;
+    temp += "<tr  id=" + "row" + u.id + ">";
+    temp += "<td >" + u.FirstName + "</td>";
+    temp += "<td>" + u.MiddleName + "</td>";
+    temp += "<td>" + u.LastName + "</td>";
+    temp += "<td>" + u.Email + "</td>";
+    temp += "<td>" + u.PhoneNumber + "</td>";
+    temp += "<td>" + u.Role + "</td>";
+    temp += "<td>" + u.Address + "</td>";
+    temp += "<td> <div class='options'><div id='Edit_Panelrow" + u.id + "' style='display:block'> <button class='btn btn-success' type=submit onclick=\"v.Edit('row" + u.id + "')\"  > Edit </button>  <button  class='btn btn-danger' type=submit onclick=\"v.DeleteButton(" + u.id + ")\"  > Delete </button></div><div id='Save_Panelrow" + u.id + "' style='display: none'><button  class='btn btn-primary' type=submit onclick=\"v.SaveButton(" + u.id + ")\"  > Save </button> <button  class='btn btn-warning' type=submit onclick=\"v.CancelButton(" + u.id + ")\" > Cancel</button> </div></div></td></tr>";
 }
-var array = json;
+;
+display_table.innerHTML = temp;
